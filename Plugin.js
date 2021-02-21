@@ -1,5 +1,5 @@
 
-class Plugin {
+class _Plugin {
   constructor(entityID) {
       this.settings = window.settings.buildCategoryObject(this.entityID);
       this.ready = false;
