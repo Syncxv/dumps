@@ -78,3 +78,4 @@ class _Plugin {
       console.error(`%c[Plugin:${this.constructor.name}]`, `color: ${this.color}`, ...data);
     }
 }
+window._Plugin = _Plugin
