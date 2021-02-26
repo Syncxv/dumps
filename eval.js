@@ -64,7 +64,7 @@ const {
     Button
   } = require("powercord/components");
   
-  class Settings extends React.Component {
+  class SettingsWOAyeyye extends React.Component {
     render() {
       const {
         getSetting,
@@ -122,7 +122,7 @@ class EvalCommand extends Plugin {
       window.settings.registerSettings("eval-plugin", {
         category: this.entityID,
         label: "Eval Plugin",
-        render: Settings,
+        render: SettingsWOAyeyye,
       });
   
       // Eval command, of course
