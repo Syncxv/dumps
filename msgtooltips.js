@@ -77,7 +77,6 @@ class StringPart extends React.PureComponent {
           });
   
         case 'Base64':
-            console.log(part)
           const parsed = atob(part); // Honestly the base64-majority-text option confused me and I only got it correct via trial and error.
           // prettier-ignore
   
