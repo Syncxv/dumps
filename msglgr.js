@@ -3009,7 +3009,13 @@ async function msglgr() {
           ret.props.__MLV2_deleteTime = record.delete_data.time;
         })
       );
-      const Message = ZeresPluginLibrary.WebpackModules.getByIndex(ZeresPluginLibrary.WebpackModules.getIndex(m => m.default && (m.default.displayName === 'Message' || (m.default.__originalFunction && m.default.__originalFunction.displayName === 'Message'))));
+      const Message = ZLibrary.WebpackModules.getModule(e => {
+        if (!e) return false;
+        const def = (e.__powercordOriginal_default || e.default);
+        if (!def) return false;
+        const str = def.toString();
+        return str.indexOf('childrenRepliedMessage') !== -1 && str.indexOf('childrenSystemMessage') !== -1;
+      });
       if (Message) {
         this.unpatches.push(
           ZeresPluginLibrary.Patcher.after(this.getName(), Message, 'default', (_, [props], ret) => {
@@ -4682,4 +4688,3 @@ async function msglgr() {
   }
   
   setTimeout(msglgr, 200);
-console.log('is it working')
