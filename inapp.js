@@ -100,10 +100,8 @@ class InAppNotifications extends Plugin {
 						text: 'Mute Channel 15 Min',
 						look: 'ghost',
 						size: 'small',
-						onClick: () => {
-                            var d = new moment
-							mod.updateChannelOverrideSettings(channel.guild_id, channel.id, this.getMuteConfig(900))
-						}
+						onClick: () => mod.updateChannelOverrideSettings(channel.guild_id, channel.id, this.getMuteConfig(900))
+				
 					}, {
 						text: 'Mark as read',
 						look: 'ghost',
