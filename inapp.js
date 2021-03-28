@@ -42,7 +42,9 @@ class Settings extends React.Component {
 
 
 class InAppNotifications extends Plugin {
-
+    constructor() {
+        super('inappnotif')
+    }
 	async startPlugin() {
 		powercord.api.settings.registerSettings('ian-settings', {
 			category: this.entityID,
@@ -55,7 +57,7 @@ class InAppNotifications extends Plugin {
 			const transition = getModule([ 'transitionTo' ], false);
 			const { getGuild } = getModule([ 'getGuild' ], false);
 			const { ack } = getModule([ 'ack', 'ackCategory' ], false);
-
+            var mod = getModule(['updateChannelOverrideSettings'], false)
 			let toasts = [];
 
 			inject('ian', show, 'makeTextChatNotification', args => {
@@ -95,6 +97,14 @@ class InAppNotifications extends Plugin {
 							toasts.forEach((id) => powercord.api.notices.closeToast(id));
 						}
 					}, {
+						text: 'Mute Channel 15 Min',
+						look: 'ghost',
+						size: 'small',
+						onClick: () => {
+                            var d = new moment
+							mod.updateChannelOverrideSettings(channel.guild_id, channel.id, this.getMuteConfig(900))
+						}
+					}, {
 						text: 'Mark as read',
 						look: 'ghost',
 						size: 'small',
@@ -127,7 +137,11 @@ class InAppNotifications extends Plugin {
 			console.error(`There seems to have been a problem with the in app notifications. Please report this to the developer.\n\n${error}`);
 		}
 	}
-
+    getMuteConfig(s) {
+        return { muted: true, mute_config: {
+            end_time: new Date(Date.now() + s * 1000).toISOString(), selected_time_window: Number(s)
+        }}
+    }
 	pluginWillUnload() {
 		uninject('ian');
 		uninject('ian-desktop-blocker');
